@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Weather App - by MG</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="{% static 'weatherapp/css/style.css' %}"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="tm-container">
+      <div class="tm-text-white tm-page-header-container">
+        <i class="fas fa-mug-hot fa-2x tm-page-icon"></i>
+        <h1 class="tm-page-header">Weather App by Max</h1>
+      </div>
+      <div class="tm-main-content">
+        <div id="tm-intro-img"></div>
+        <!-- Coffee Menu -->
+        <section class="tm-section">
+          <h2 class="tm-section-header">{{ city }}</h2>
+          <h2 class="tm-section-header">{{ day }}</h2>
+          <div class="tm-responsive-table">
+            <table>
+              <tr class="tm-tr-header">
+                <th></th>
+                <th>{{ description }}</th>
+                <th>
+                  <img
+                    src="http://openweathermap.org/img/w/{{icon}}.png"
+                    width="100px"
+                  />
+                </th>
+                <th></th>
+              </tr>
+              <tr>
+                <td class="tm-text-left">Temperatura</td>
+                <td>{{ temperature }}</td>
+                <td>°C</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="tm-text-left">Sensacion Termica</td>
+                <td>{{ sensacion }}</td>
+                <td>°C</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="tm-text-left">Temperatura Maxima</td>
+                <td>{{ tempMax }}</td>
+                <td>°C</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="tm-text-left">Temperatura Minima</td>
+                <td>{{ tempMin }}</td>
+                <td>°C</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="tm-text-left">Humedad</td>
+                <td>{{ humedad }}</td>
+                <td>%</td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </section>
+
+        <!-- Tea Menu -->
+        <section class="tm-section">
+          <h2 class="tm-section-header"></h2>
+          <div class="tm-responsive-table">
+            <table>
+              <tr class="tm-tr-header">
+                <th>&nbsp;</th>
+                <th>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <br />
+                    Ingrese Otra Ciudad
+                    <p>
+                      <input
+                        type="text" 
+                        class="text-box"
+                        placeholder="Ingrese Ciudad"
+                        name="city"
+                        required
+                      />
+                      <button class="text-button" type="submit">Cambiar</button>
+                    </p>
+                  </form>
+                </th>
+                <th></th>
+                <th></th>
+              </tr>
+            </table>
+          </div>
+        </section>
+
+        <!-- About our cafe -->
+        <section class="tm-section tm-section-small">
+          <h2 class="tm-section-header">Sobre la Web</h2>
+          <p>
+            El motivo de la web es probar consultas a una API. Para esta prueba se utilizo la API de OpenWeahter.
+          </p>
+       
+        </section>
+        <hr />
+       
+      <footer>
+       
+      </footer>
+    </div>
+    <script src="{% static 'weatherapp/js/jquery-3.4.1.min.js' %}"></script>
+    <script>
+      $(function () {
+        // Adjust intro image height based on width.
+        $(window).resize(function () {
+          var img = $("#tm-intro-img");
+          var imgWidth = img.width();
+
+          // 640x425 ratio
+          var imgHeight = (imgWidth * 425) / 640;
+
+          if (imgHeight < 300) {
+            imgHeight = 300;
+          }
+
+          img.css("min-height", imgHeight + "px");
+        });
+      });
+    </script>
+  </body>
+</html>
